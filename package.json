@@ -1,0 +1,29 @@
+{
+  "name": "site-weather-api",
+  "version": "1.0.0",
+  "description": "A Weather API ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naikvarun/site-weather-api.git"
+  },
+  "author": {
+    "name": "Varun Naik",
+    "email": "naik.varun@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/naikvarun/site-weather-api/issues"
+  },
+  "homepage": "https://github.com/naikvarun/site-weather-api#readme",
+  "dependencies": {
+    "@hapi/hapi": "^18.4.0",
+    "@hapi/wreck": "^16.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
