@@ -19,7 +19,9 @@ function getHistoricalWeather(request ) {
             start =  moment().startOf('day');
         }
     }
-    return weatherService.getHistoricalWeather(latitude, longitude, start, HISTORICAL_DAYS);
+    //TODO: verify days is number and less than max limit
+    const historicalDays = request.query.days ? request.query.days  : HISTORICAL_DAYS;
+    return weatherService.getHistoricalWeather(latitude, longitude, start, historicalDays);
 }
 
 module.exports = [

@@ -21,6 +21,16 @@ describe('lookup', () => {
             url: '/lookup/41.911515,-87.659827'
         });
         expect(result).to.not.null();
+        expect(result.data.length).to.equal(7);
+    });
+
+    it('return lat and long weather information for 3 days from today', async () => {
+        const {result} = await server.inject({
+            method: 'get',
+            url: '/lookup/41.911515,-87.659827?days=3'
+        });
+        expect(result).to.not.null();
+        expect(result.data.length).to.equal(3);
     });
     it('should return 400 for invalid date', async () => {
         const {result} = await server.inject({
