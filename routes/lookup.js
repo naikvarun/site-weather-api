@@ -31,9 +31,9 @@ function getHistoricalWeather(request) {
     const longitude = Number(split[1]);
     let queryDays = request.query.days ? request.query.days : APP.HISTORICAL_DAYS;
     const dateParameter = request.params.date;
-    let validationObject = {latitude: latitude, longitude: longitude, fromDate: queryDays};
+    let validationObject = {latitude: latitude, longitude: longitude, days: queryDays};
     if (dateParameter) {
-        validationObject = {...validationObject, from: dateParameter}
+        validationObject = {...validationObject, fromDate: dateParameter}
     }
     const {error} = schema.validate(validationObject);
 

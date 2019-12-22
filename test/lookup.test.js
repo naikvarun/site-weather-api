@@ -29,6 +29,8 @@ describe('lookup', () => {
             method: 'get',
             url: '/lookup/41.911515,-87.659827?days=3'
         });
+
+        console.log(result);
         expect(result).to.not.null();
         expect(result.data.length).to.equal(3);
     });
