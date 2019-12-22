@@ -35,7 +35,22 @@ describe('lookup', () => {
     it('should return 400 for invalid date', async () => {
         const {result} = await server.inject({
             method: 'get',
-            url: '/lookup/123,456/12345'
+            url: '/lookup/90,90/12345'
+        });
+        expect(result.statusCode).to.equal(400);
+    });
+    it('should return 400 for invalid days', async () => {
+        const {result} = await server.inject({
+            method: 'get',
+            url: '/lookup/90,90?days=x'
+        });
+        expect(result.statusCode).to.equal(400);
+    });
+
+    it('should return 400 for max days excceded', async () => {
+        const {result} = await server.inject({
+            method: 'get',
+            url: '/lookup/90,90?days=16'
         });
         expect(result.statusCode).to.equal(400);
     });
