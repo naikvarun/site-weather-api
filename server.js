@@ -1,17 +1,10 @@
 const Hapi = require('@hapi/hapi');
 const port = process.env.PORT || 3000;
+const appRoutes = require('./routes/index');
 
 const server = Hapi.server({port: port});
 
-server.route({
-    method: 'GET',
-    path: '/status',
-    handler: (request, h) => {
-        return {
-            "message": "ok"
-        }
-    }
-});
+server.route(appRoutes);
 
 exports.init = async () => {
     await server.initialize();
