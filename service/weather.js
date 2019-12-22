@@ -1,15 +1,6 @@
 'use strict';
 const darkSky = require('../external/dark_sky');
-
-function getEpochTime(date) {
-    return date.getTime() / 1000;
-}
-
-function addDays(reference, days) {
-    const copy = new Date(Number(reference));
-    copy.setDate(reference.getDate() + days);
-    return copy;
-}
+const moment = require('moment');
 
 module.exports = {
     /**
@@ -23,7 +14,7 @@ module.exports = {
     getHistoricalWeather: async (latitude, longitude, from, days) => {
         const weatherData = [];
         for (let i = 0; i < days; i++) {
-            const weather = await darkSky.getWeather(latitude, longitude, getEpochTime(addDays(from, (i * -1))));
+            const weather = await darkSky.getWeather(latitude, longitude, moment(from).add({days: (i*-1)}).unix() );
             weatherData.push({...weather.data});
         }
         return {
