@@ -5,14 +5,6 @@ const moment = require('moment');
 const LOCATION_SPLITTER = ',';
 const HISTORICAL_DAYS = 7;
 
-
-function getToday() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return today;
-}
-
-
 function getHistoricalWeather(request ) {
     const location = request.params.location;
     let split = location.split(LOCATION_SPLITTER);
