@@ -22,4 +22,11 @@ describe('lookup', () => {
         });
         expect(result).to.not.null();
     });
+    it('should return 400 for invalid date', async () => {
+        const {result} = await server.inject({
+            method: 'get',
+            url: '/lookup/123,456/12345'
+        });
+        expect(result.statusCode).to.equal(400);
+    });
 });
