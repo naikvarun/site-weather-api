@@ -20,7 +20,7 @@ const schema = Joi.object({
         .min(0)
         .max(APP.MAX_HISTORICAL_DAYS)
         .required(),
-    from: Joi.date().format("YYYYMMDD")
+    fromDate: Joi.date().format("YYYYMMDD")
 });
 
 
@@ -31,7 +31,7 @@ function getHistoricalWeather(request) {
     const longitude = Number(split[1]);
     let queryDays = request.query.days ? request.query.days : APP.HISTORICAL_DAYS;
     const dateParameter = request.params.date;
-    let validationObject = {latitude: latitude, longitude: longitude, days: queryDays};
+    let validationObject = {latitude: latitude, longitude: longitude, fromDate: queryDays};
     if (dateParameter) {
         validationObject = {...validationObject, from: dateParameter}
     }
