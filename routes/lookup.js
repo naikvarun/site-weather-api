@@ -1,9 +1,9 @@
 const weatherService = require('../service/weather');
 const Boom = require('@hapi/boom');
 const moment = require('moment');
-
+const {APP} = require('../config/config');
+const MAX_HISTORICAL_DAYS = APP.MAX_HISTORICAL_DAYS;
 const LOCATION_SPLITTER = ',';
-const HISTORICAL_DAYS = 7;
 
 function getHistoricalWeather(request ) {
     const location = request.params.location;
@@ -20,7 +20,7 @@ function getHistoricalWeather(request ) {
         }
     }
     //TODO: verify days is number and less than max limit
-    const historicalDays = request.query.days ? request.query.days  : HISTORICAL_DAYS;
+    const historicalDays = request.query.days ? request.query.days  : APP.HISTORICAL_DAYS;
     return weatherService.getHistoricalWeather(latitude, longitude, start, historicalDays);
 }
 

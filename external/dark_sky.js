@@ -1,13 +1,10 @@
 const wrek = require('@hapi/wreck');
+const {DARK_SKY} = require('../config/config');
 
-const DARK_SKY_KEY = process.env.DARK_SKY_KEY;
-const DARK_SKY_BASE_URL = process.env.DART_SKY_BASE_URL;
-
-const DARK_SKY_URL = `${DARK_SKY_BASE_URL}/${DARK_SKY_KEY}`;
-const DARK_SKY_EXCLUDE = 'exclude=currently, minutely, hourly, alerts, flags';
+const DARK_SKY_URL = `${DARK_SKY.BASE_URL}/${DARK_SKY.KEY}`;
 
 function getDarkSkyURI(latitude, longitude, time) {
-    return `${DARK_SKY_URL}/${latitude},${longitude},${time}?${DARK_SKY_EXCLUDE}`
+    return `${DARK_SKY_URL}/${latitude},${longitude},${time}?${DARK_SKY.EXCLUDE}`
 }
 
 module.exports = {
