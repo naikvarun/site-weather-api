@@ -15,14 +15,11 @@ describe('lookup', () => {
         await server.stop();
     });
 
-    it('return lat and long', async () => {
+    it('return lat and long weather information', async () => {
         const {result} = await server.inject({
             method: 'get',
-            url: '/lookup/123,456'
+            url: '/lookup/41.911515,-87.659827'
         });
-        expect(result.latitude).to.equal(123);
-        expect(result.longitude).to.equal(456);
-        expect(result.time).to.not.be.null();
-        expect(result.requestedTime).to.not.be.null();
+        expect(result).to.not.null();
     });
 });

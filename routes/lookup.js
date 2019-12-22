@@ -1,25 +1,24 @@
-const LOCATION_SPLITTER = ',';
+const weatherService = require('../service/weather');
 
-function getEpochDate(date) {
-    return date.getTime() / 1000;
+const LOCATION_SPLITTER = ',';
+const HISTORICAL_DAYS = 7;
+
+
+function getToday() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today;
 }
 
-function getWeather(request, h) {
+
+function getHistoricalWeather(request ) {
     const location = request.params.location;
     let split = location.split(LOCATION_SPLITTER);
     const latitude = Number(split[0]);
     const longitude = Number(split[1]);
-    const current = new Date();
-    current.setHours(0,0,0,0);
-    const time = getEpochDate(current);
-    return {
-        "latitude": latitude,
-        "longitude": longitude,
-        "time": time,
-        "requestedTime": new Date()
-    }
+    return weatherService.getHistoricalWeather(latitude, longitude, getToday(), HISTORICAL_DAYS);
 }
 
 module.exports = [
-    {method: 'GET', path: '/lookup/{location}', handler: getWeather}
+    {method: 'GET', path: '/lookup/{location}', handler: getHistoricalWeather}
 ];
