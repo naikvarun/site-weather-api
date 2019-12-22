@@ -4,7 +4,9 @@
   "description": "A Weather API ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "lab -v **/*.test.js",
+    "dev": "nodemon index.js",
+    "run": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,8 @@
     "@hapi/wreck": "^16.0.1"
   },
   "devDependencies": {
+    "@hapi/code": "^7.0.0",
+    "@hapi/lab": "^21.0.0",
     "nodemon": "^2.0.2"
   }
 }
