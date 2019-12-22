@@ -2,7 +2,6 @@ const weatherService = require('../service/weather');
 const Boom = require('@hapi/boom');
 const moment = require('moment');
 const {APP} = require('../config/config');
-const MAX_HISTORICAL_DAYS = APP.MAX_HISTORICAL_DAYS;
 const LOCATION_SPLITTER = ',';
 
 function getHistoricalWeather(request ) {
@@ -12,6 +11,8 @@ function getHistoricalWeather(request ) {
     const longitude = Number(split[1]);
     const dateParameter = request.params.date;
     let start = moment().format('YYYY-MM-DD 00:00:00');
+
+    // Check if passed date is valid
     if (dateParameter) {
         if (! moment(dateParameter, "YYYYMMDD", true).isValid()) {
             return Boom.badRequest('Invalid date format');
@@ -19,9 +20,19 @@ function getHistoricalWeather(request ) {
             start =  moment().startOf('day');
         }
     }
-    //TODO: verify days is number and less than max limit
-    const historicalDays = request.query.days ? request.query.days  : APP.HISTORICAL_DAYS;
-    return weatherService.getHistoricalWeather(latitude, longitude, start, historicalDays);
+
+    // Validate days requested
+    let queryDays = request.query.days ? request.query.days : APP.HISTORICAL_DAYS;
+    if (isNaN(queryDays)) {
+        return Boom.badRequest('Invalid days requested');
+    }
+    if (queryDays > APP.MAX_HISTORICAL_DAYS) {
+        return Boom.badRequest(`Query days requested than ${APP.MAX_HISTORICAL_DAYS} days.`)
+    }
+
+
+
+    return weatherService.getHistoricalWeather(latitude, longitude, start, queryDays);
 }
 
 module.exports = [
