@@ -1,7 +1,7 @@
 const weatherService = require('../service/weather');
 const Boom = require('@hapi/boom');
 const moment = require('moment');
-const Joi = require('@hapi/joi');
+const Joi = require('@hapi/joi').extend(require('@hapi/joi-date'));
 const {APP} = require('../config/config');
 const LOCATION_SPLITTER = ',';
 
@@ -19,7 +19,8 @@ const schema = Joi.object({
     days: Joi.number()
         .min(0)
         .max(APP.MAX_HISTORICAL_DAYS)
-        .required()
+        .required(),
+    from: Joi.date().format("YYYYMMDD")
 });
 
 
@@ -29,22 +30,19 @@ function getHistoricalWeather(request) {
     const latitude = Number(split[0]);
     const longitude = Number(split[1]);
     let queryDays = request.query.days ? request.query.days : APP.HISTORICAL_DAYS;
-    const {error} = schema.validate({latitude: latitude, longitude: longitude, days: queryDays});
+    const dateParameter = request.params.date;
+    let validationObject = {latitude: latitude, longitude: longitude, days: queryDays};
+    if (dateParameter) {
+        validationObject = {...validationObject, from: dateParameter}
+    }
+    const {error} = schema.validate(validationObject);
 
     if (error) {
         return Boom.badRequest(error.details[0].message);
     }
-    const dateParameter = request.params.date;
-    let start = moment().format('YYYY-MM-DD 00:00:00');
 
-    // Check if passed date is valid
-    if (dateParameter) {
-        if (!moment(dateParameter, "YYYYMMDD", true).isValid()) {
-            return Boom.badRequest('Invalid date format');
-        } else {
-            start = moment().startOf('day');
-        }
-    }
+    let start = dateParameter ? moment(dateParameter, "YYYYMMDD", true) : moment().startOf('day');
+
     return weatherService.getHistoricalWeather(latitude, longitude, start, queryDays);
 }
 

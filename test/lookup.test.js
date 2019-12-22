@@ -37,6 +37,7 @@ describe('lookup', () => {
             method: 'get',
             url: '/lookup/90,90/12345'
         });
+
         expect(result.statusCode).to.equal(400);
     });
     it('should return 400 for invalid days', async () => {
@@ -47,7 +48,7 @@ describe('lookup', () => {
         expect(result.statusCode).to.equal(400);
     });
 
-    it('should return 400 for max days excceded', async () => {
+    it('should return 400 for max days exceeded', async () => {
         const {result} = await server.inject({
             method: 'get',
             url: '/lookup/90,90?days=16'
