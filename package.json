@@ -4,9 +4,9 @@
   "description": "A Weather API ",
   "main": "index.js",
   "scripts": {
-    "test": "lab -v **/*.test.js",
+    "test": "DART_SKY_BASE_URL=https://api.darksky.net/forecast  lab -v **/*.test.js",
     "dev": "nodemon index.js",
-    "run": "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,13 @@
   },
   "homepage": "https://github.com/naikvarun/site-weather-api#readme",
   "dependencies": {
+    "@hapi/boom": "^8.0.1",
     "@hapi/hapi": "^18.4.0",
-    "@hapi/wreck": "^16.0.1"
+    "@hapi/joi": "^16.1.8",
+    "@hapi/joi-date": "^2.0.1",
+    "@hapi/wreck": "^16.0.1",
+    "moment": "^2.24.0",
+    "mongoose": "^5.8.2"
   },
   "devDependencies": {
     "@hapi/code": "^7.0.0",
