@@ -9,6 +9,7 @@ module.exports = {
         EXCLUDE: 'exclude=currently, minutely, hourly, alerts, flags'
     },
     MONGO:  {
-        URL: process.env.MONGO_URL
+        URL: process.env.MONGO_URL,
+        LOCATION_WEATHER_COLLECTION: process.env.LOCATION_WEATHER_COLLECTION
     }
 };

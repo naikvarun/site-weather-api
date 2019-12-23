@@ -1,5 +1,6 @@
 'use strict';
 const darkSky = require('../external/dark_sky');
+const mongo = require('../external/mongo');
 const moment = require('moment');
 
 module.exports = {
@@ -17,11 +18,13 @@ module.exports = {
             const weather = await darkSky.getWeather(latitude, longitude, moment(from).add({days: (i*-1)}).unix() );
             weatherData.push({...weather.data});
         }
-        return {
+        const result =  {
             "latitude": latitude,
             "longitude": longitude,
             "requestedTime": new Date(),
             data: weatherData
-        }
+        };
+        await mongo.save(result);
+        return result;
     }
 };
