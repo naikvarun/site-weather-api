@@ -1,3 +1,4 @@
 const statusRoutes = require('./status');
 const lookupRoutes = require('./lookup');
-module.exports = [].concat(statusRoutes, lookupRoutes);
+const listRoutes = require('./list-routes');
+module.exports = [].concat(statusRoutes, lookupRoutes, listRoutes);
