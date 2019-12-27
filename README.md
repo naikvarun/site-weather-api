@@ -1,5 +1,19 @@
 # site-weather-api
 
+Running the API
+---------------
+Set the following environment variables
+- `PORT`: Port for the API server. Default 3000
+- `DART_SKY_BASE_URL`: DarkSKY API base URL
+- `DARK_SKY_KEY`: Your DarkSKY private key
+- `MONGO_URL`: MongoDB Atlas connection URL
+- `LOCATION_WEATHER_COLLECTION`: Name of collection on MongoDB
+
+Run `node start` to start the API server
+
+For Development run `node dev`
+ - It will use nodemon to run the server
+
 API Request Types
 ---------------
 - [`lookup`](#lookup) 
