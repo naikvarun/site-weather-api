@@ -26,5 +26,9 @@ module.exports = {
         };
         await mongo.save(result);
         return result;
+    },
+
+    getWeatherLookup: async () => {
+        return await mongo.findAll();
     }
 };
