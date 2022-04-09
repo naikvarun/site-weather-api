@@ -27,7 +27,7 @@
     "@hapi/joi": "^16.1.8",
     "@hapi/joi-date": "^2.0.1",
     "@hapi/wreck": "^16.0.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.8.2"
   },
   "devDependencies": {
